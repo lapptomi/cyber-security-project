@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  cyber-security-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client/src:/usr/src/app/src
+    ports:
+      - 3000:3000
+  cyber-security-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - ./server/src:/usr/src/app/src
+      - ./server/prisma/dev.db:/usr/src/app/prisma/dev.db
+    ports:
+      - 8080:8080
