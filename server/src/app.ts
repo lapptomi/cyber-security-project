@@ -8,8 +8,8 @@ const app: Express = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/", indexRouter);
 app.use("/users", userRouter);
+app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 8080;
 

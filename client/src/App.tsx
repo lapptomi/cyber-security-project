@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import styled from 'styled-components';
 import {
   BrowserRouter,
@@ -7,7 +6,6 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-
 
 const App = () => {
   return (
@@ -26,6 +24,7 @@ const App = () => {
         <Route path="/" element={<h1>asd</h1>} />
         <Route path="/posts" element={<h1>blog</h1>} />
         <Route path="/users/*" element={<h1>asd</h1>} />
+        
         <Route path="/admin" element={<h1>Secret data here</h1>} />
       </Routes>
     </div>
