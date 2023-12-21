@@ -13,7 +13,7 @@ export const login = async (request: Request) => {
 
   const user = await userDao.getUserByUsername(request.body.username);
   if (!user || user.password !== request.body.password) {
-    throw new Error("Invalid or missing username or password2");
+    throw new Error("Invalid or missing password");
   }
 
   const token = jwt.sign(user, JWT_SECRET, {

@@ -1,4 +1,4 @@
-# Cyber Security Base 2023
+# [Cyber Security Base 2023](https://cybersecuritybase.mooc.fi/)
 ## Project description
 ***"In the first course project, your task is to create a web application that has at least five different flaws from the [OWASP](https://owasp.org/www-project-top-ten/) top ten list as well as their fixes. The application should have a backend."***
 
