@@ -6,28 +6,31 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import useGetLoggedUser from './hooks/useGetLoggedUser';
 
 const App = () => {
+  const isAuthenticated = useGetLoggedUser();
+  console.log(isAuthenticated)
+
   return (
     <BrowserRouter>
+      <div>
+        <Navigation>
+          <StyledLink to="/">Users</StyledLink>
+          <StyledLink to="/posts">Posts</StyledLink>
+          <StyledLink to="/profile">Profile</StyledLink>
+          <StyledLink to="/register">register</StyledLink>
+          <StyledLink to="/login">login</StyledLink>
+        </Navigation>
 
-    <div className="App">
-      <Navigation>
-        <StyledLink to="/">Users</StyledLink>
-        <StyledLink to="/posts">Posts</StyledLink>
-        <StyledLink to="/profile">Profile</StyledLink>
-        <StyledLink to="/register">register</StyledLink>
-        <StyledLink to="/login">login</StyledLink>
-      </Navigation>
-
-      <Routes>
-        <Route path="/" element={<h1>asd</h1>} />
-        <Route path="/posts" element={<h1>blog</h1>} />
-        <Route path="/users/*" element={<h1>asd</h1>} />
-        
-        <Route path="/admin" element={<h1>Secret data here</h1>} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<h1>asd</h1>} />
+          <Route path="/posts" element={<h1>blog</h1>} />
+          <Route path="/users/*" element={<h1>asd</h1>} />
+          
+          <Route path="/admin" element={<h1>Secret data here</h1>} />
+        </Routes>
+      </div>
     </BrowserRouter>
 
   );

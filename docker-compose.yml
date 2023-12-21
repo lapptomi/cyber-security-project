@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   cyber-security-client:
+    environment:
+      - BASE_API_URL=http://localhost:8080
+      - JWT_SECRET=secretkey123
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -16,6 +19,5 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./server/src:/usr/src/app/src
-      - ./server/prisma/dev.db:/usr/src/app/prisma/dev.db
     ports:
       - 8080:8080
