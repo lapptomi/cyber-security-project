@@ -7,10 +7,6 @@ import { JWT_SECRET } from "../utils/constants";
 const userDao = new UserDao();
 
 export const login = async (request: Request) => {
-  if (!request.body.username || !request.body.password) {
-    throw new Error("Invalid or missing username or password");
-  }
-
   const user = await userDao.getUserByUsername(request.body.username);
   if (!user || user.password !== request.body.password) {
     throw new Error("Invalid or missing password");

@@ -7,11 +7,10 @@ const useGetLoggedUser = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');  
-    if (!token) return;
-
     axios.get(`${REACT_APP_API_URL}/auth/me`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
     })
     .then((response) => {
       const user = response.data;

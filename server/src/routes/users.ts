@@ -11,6 +11,13 @@ router.get("/", async (_req: Request, res: Response, next) => {
     .catch((error) => next(error));
 });
 
+router.post("/", async (req: Request, res: Response, next) => {
+  return userDao
+    .createUser(req.body)
+    .then((user) => res.status(201).json(user))
+    .catch((error) => next(error));
+});
+
 router.get("/:id", async (req: Request, res: Response, next) => {
   return userDao
     .getUserById(req.params.id)
