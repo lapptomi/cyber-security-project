@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { BASE_API_URL } from "../constants";
+import { REACT_APP_API_URL } from "../constants";
 
 const useGetLoggedUser = () => {
   const [user, setUser] = useState(null);
@@ -8,12 +8,9 @@ const useGetLoggedUser = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');  
-    
     if (!token) return;
 
-    setLoading(true);
-
-    axios.get(`${BASE_API_URL}/auth/me`, {
+    axios.get(`${REACT_APP_API_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {

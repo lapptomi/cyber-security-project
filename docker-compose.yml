@@ -3,8 +3,7 @@ version: '3.8'
 services:
   cyber-security-client:
     environment:
-      - BASE_API_URL=http://localhost:8080
-      - JWT_SECRET=secretkey123
+      - REACT_APP_API_URL=http://localhost:8080/api
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -14,6 +13,8 @@ services:
       - 3000:3000
 
   cyber-security-server:
+    environment:
+      - JWT_SECRET=secretkey123
     build:
       context: ./server
       dockerfile: Dockerfile
