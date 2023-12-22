@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { getLoggedUser, login } from "../services/authService";
+import { getLoggedUser, generateToken } from "../services/authService";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.get("/me", async (req: Request, res: Response, next) => {
 });
 
 router.post("/login", async (req: Request, res: Response, next) => {
-  return login(req)
+  return generateToken(req)
     .then((token) => res.status(200).json({ token }))
     .catch((error) => next(error));
 });

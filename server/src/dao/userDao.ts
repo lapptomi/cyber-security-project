@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { User } from "@prisma/client";
-import { prisma } from "../utils/db";
+import prisma from "../utils/db";
 import bcrypt from "bcryptjs";
 
 class UserDao {
