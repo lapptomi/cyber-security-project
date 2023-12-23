@@ -1,17 +1,16 @@
-import React from "react";
-import { Alert, Button, TextField } from "@mui/material";
-import { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { Alert, Button, TextField } from '@mui/material';
+import styled from 'styled-components';
 import { createUser, login } from '../helpers';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
+
   const handleRegister = async (event: any) => {
     event.preventDefault();
-    
+
     createUser({ username, password })
       .then(({ username, password }) => {
         login({ username, password });
@@ -28,7 +27,7 @@ const RegisterPage = () => {
 
       <LoginForm onSubmit={handleRegister}>
         {error && <Alert severity="error">{error}</Alert>}
-        
+
         <TextField
           label="Username"
           value={username}

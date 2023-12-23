@@ -1,14 +1,13 @@
-import React from "react";
-import { Alert, Button, TextField } from "@mui/material";
-import { useState } from "react";
-import styled from "styled-components";
-import { login } from "../helpers";
+import React, { useState } from 'react';
+import { Alert, Button, TextField } from '@mui/material';
+import styled from 'styled-components';
+import { login } from '../helpers';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
+
   const handleLogin = async () => {
     login({ username, password }).catch((error) => {
       setError(error.response.data.error);
@@ -22,7 +21,7 @@ const LoginPage = () => {
 
       <LoginForm>
         {error && <Alert severity="error">{error}</Alert>}
-        
+
         <TextField
           label="Username"
           value={username}

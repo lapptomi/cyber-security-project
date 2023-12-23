@@ -4,13 +4,13 @@ import {
   Link,
   Route,
   Routes,
-} from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SecretAdminPage from "./pages/SecretAdminPage";
-import styled from "styled-components";
-import useGetLoggedUser from "./hooks/useGetLoggedUser";
-import { Button, LinearProgress } from "@mui/material";
-import LoginPage from "./pages/LoginPage";
+} from 'react-router-dom';
+import styled from 'styled-components';
+import { Button, LinearProgress } from '@mui/material';
+import HomePage from './pages/HomePage';
+import SecretAdminPage from './pages/SecretAdminPage';
+import useGetLoggedUser from './hooks/useGetLoggedUser';
+import LoginPage from './pages/LoginPage';
 import { logout } from './helpers';
 import RegisterPage from './pages/RegisterPage';
 
@@ -35,7 +35,7 @@ const App = () => {
           )}
         </NavigationItems>
 
-        {user 
+        {user
           ? (
             <Button size="small" variant="contained" onClick={logout}>
               logout
@@ -50,9 +50,7 @@ const App = () => {
                 <Button variant="contained" size="small">Sign up</Button>
               </Link>
             </NavigationItems>
-          )
-        }
-        
+          )}
       </Navigation>
 
       <Routes>

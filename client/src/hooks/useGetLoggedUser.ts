@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { REACT_APP_API_URL } from "../constants";
-import { User } from "../types";
+import { REACT_APP_API_URL } from '../constants';
+import { User } from '../types';
 
 const useGetLoggedUser = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -16,17 +16,17 @@ const useGetLoggedUser = () => {
     }
     axios.get(`${REACT_APP_API_URL}/auth/me`, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      const user = response.data;
-      if (response.status === 200 && user) {
-        setUser(user);
-      }
-    })
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
+      .then((response) => {
+        const user = response.data;
+        if (response.status === 200 && user) {
+          setUser(user);
+        }
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, []);
 
   return { user, loading };

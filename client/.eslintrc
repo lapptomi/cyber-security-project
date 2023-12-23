@@ -2,20 +2,30 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
       "plugin:@typescript-eslint/recommended",
-      "plugin:react/recommended"
+      "plugin:react/recommended",
+      "airbnb"
   ],
   "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+      "ecmaVersion": 2018
   },
+  "plugins": [
+    "@typescript-eslint",
+    "react"
+  ],
   "rules": {
-    // require semicolon at the end of line
-    "semi": ["error", "always"],
-    // Allow any type 
+    "max-len": ["error", { "code": 100 }],
+    "arrow-body-style": "off",
+    "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    // Allow unused variables
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-use-before-define": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-shadow": "off",
+    "no-undef": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
   },
   "settings": {
     "react": {

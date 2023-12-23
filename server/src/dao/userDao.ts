@@ -32,7 +32,7 @@ class UserDao {
       throw new Error("User not found");
     }
 
-    return results[0];
+    return results;
   }
 
   async getUserByUsername(username: string) {

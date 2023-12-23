@@ -21,7 +21,7 @@ router.post("/", async (req: Request, res: Response, next) => {
 router.get("/:id", async (req: Request, res: Response, next) => {
   return userDao
     .getUserById(req.params.id)
-    .then((user) => res.status(200).json(user))
+    .then((results) => res.status(200).json(results))
     .catch((error) => next(error));
 });
 

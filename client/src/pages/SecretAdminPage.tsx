@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
-import styled from "styled-components";
-import useGetAllUsers from "../hooks/useGetAllUsers";
-import useGetLoggedUser from "../hooks/useGetLoggedUser";
-import { Navigate } from "react-router-dom";
-import { LinearProgress, Typography } from "@mui/material";
-import { User } from "../types";
+import React from 'react';
+import styled from 'styled-components';
+import { Navigate } from 'react-router-dom';
+import { LinearProgress, Typography } from '@mui/material';
+import useGetAllUsers from '../hooks/useGetAllUsers';
+import useGetLoggedUser from '../hooks/useGetLoggedUser';
+import { User } from '../types';
 
-const SecretAdminPage = () => {
+function SecretAdminPage() {
   const { users, loading } = useGetAllUsers();
-  const { user, loading: userLoading } = useGetLoggedUser();
+  const { user: loggedUser, loading: userLoading } = useGetLoggedUser();
 
   if (loading || userLoading) {
     return <LinearProgress />;
   }
-  
+
   /*
     In this component we have security vulnerbility,
     because we are not checking if the user is admin or not,
@@ -22,7 +22,7 @@ const SecretAdminPage = () => {
 
     We can fix this by redirecting the user to the home page like this:
 
-    if (!user || user.role !== 'ADMIN') {
+    if (!loggedUser || loggedUser.role !== 'ADMIN') {
       return <Navigate to="/" />;
     }
   */
@@ -35,14 +35,20 @@ const SecretAdminPage = () => {
         <h3>List of users</h3>
         {users.map((user: User) => (
           <StyledRow key={user.id}>
-            <Typography variant="body1">Username: {user.username}</Typography>
-            <Typography variant="body1">Password: {user.password}</Typography>
+            <Typography variant="body1">
+              Username:
+              {user.username}
+            </Typography>
+            <Typography variant="body1">
+              Password:
+              {user.password}
+            </Typography>
           </StyledRow>
         ))}
       </div>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;

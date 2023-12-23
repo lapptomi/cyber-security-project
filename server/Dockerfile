@@ -12,4 +12,6 @@ COPY . .
 
 RUN npx prisma db push
 
+RUN npx prisma db seed
+
 CMD ["npm", "run", "dev"]
