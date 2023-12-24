@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Alert, Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { createUser, login } from '../helpers';
+import axios, { AxiosResponse } from 'axios';
+import { login } from '../helpers';
+import { Credentials } from '../types';
+import { REACT_APP_API_URL } from '../constants';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -11,8 +14,9 @@ const RegisterPage = () => {
   const handleRegister = async (event: any) => {
     event.preventDefault();
 
-    createUser({ username, password })
-      .then(({ username, password }) => {
+    axios.post(`${REACT_APP_API_URL}/users`, { username, password })
+      .then((response: AxiosResponse<Credentials>) => {
+        const { username, password } = response.data;
         login({ username, password });
       })
       .catch((error) => {
@@ -25,7 +29,7 @@ const RegisterPage = () => {
     <Container>
       <h1>Register Page</h1>
 
-      <LoginForm onSubmit={handleRegister}>
+      <RegisterForm onSubmit={handleRegister}>
         {error && <Alert severity="error">{error}</Alert>}
 
         <TextField
@@ -41,7 +45,7 @@ const RegisterPage = () => {
         />
 
         <Button type="submit" variant="contained">Login</Button>
-      </LoginForm>
+      </RegisterForm>
     </Container>
   );
 };
@@ -53,7 +57,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LoginForm = styled.form`
+const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 300px;

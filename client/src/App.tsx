@@ -11,7 +11,6 @@ import HomePage from './pages/HomePage';
 import SecretAdminPage from './pages/SecretAdminPage';
 import useGetLoggedUser from './hooks/useGetLoggedUser';
 import LoginPage from './pages/LoginPage';
-import { logout } from './helpers';
 import RegisterPage from './pages/RegisterPage';
 
 const App = () => {
@@ -20,6 +19,11 @@ const App = () => {
   if (loading) {
     return <LinearProgress />;
   }
+
+  const logout = () => {
+    window.localStorage.removeItem('token');
+    window.location.replace('/');
+  };
 
   return (
     <BrowserRouter>
@@ -35,22 +39,20 @@ const App = () => {
           )}
         </NavigationItems>
 
-        {user
-          ? (
-            <Button size="small" variant="contained" onClick={logout}>
-              logout
-            </Button>
-          )
-          : (
-            <NavigationItems>
-              <Link to="/login">
-                <Button size="small">Sign in</Button>
-              </Link>
-              <Link to="/register">
-                <Button variant="contained" size="small">Sign up</Button>
-              </Link>
-            </NavigationItems>
-          )}
+        {user ? (
+          <Button size="small" variant="contained" onClick={logout}>
+            logout
+          </Button>
+        ) : (
+          <NavigationItems>
+            <Link to="/login">
+              <Button size="small">Sign in</Button>
+            </Link>
+            <Link to="/register">
+              <Button variant="contained" size="small">Sign up</Button>
+            </Link>
+          </NavigationItems>
+        )}
       </Navigation>
 
       <Routes>

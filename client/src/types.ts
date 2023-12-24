@@ -6,3 +6,8 @@ export interface User {
 }
 
 export type Credentials = Omit<User, 'id' | 'role'>;
+
+export interface Comment {
+  id: string;
+  comment: string;
+}

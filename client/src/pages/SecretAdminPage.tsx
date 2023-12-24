@@ -16,11 +16,14 @@ function SecretAdminPage() {
   }
 
   /*
+    VULNERABILITY: Broken access control
+
     In this component we have security vulnerbility,
-    because we are not checking if the user is admin or not,
+    since we are not checking if the user is admin or not,
     or if the user is logged in or not.
 
-    We can fix this by redirecting the user to the home page like this:
+    We can fix this by redirecting the user to the home page
+    if not logged in or not admin like this:
 
     if (!loggedUser || loggedUser.role !== 'ADMIN') {
       return <Navigate to="/" />;
@@ -36,12 +39,10 @@ function SecretAdminPage() {
         {users.map((user: User) => (
           <StyledRow key={user.id}>
             <Typography variant="body1">
-              Username:
-              {user.username}
+              {`Username: ${user.username}`}
             </Typography>
             <Typography variant="body1">
-              Password:
-              {user.password}
+              {`Password: ${user.password}`}
             </Typography>
           </StyledRow>
         ))}
