@@ -44,7 +44,6 @@ function SecretAdminPage() {
       <h1>Top secret admin view</h1>
 
       <div>
-        <h3>List of users</h3>
         <Typography variant="caption" color="textSecondary">
           {`Secret data: ${secretData}`}
         </Typography>
