@@ -5,5 +5,6 @@
 The project is written in Typescript where the backend is created using Express.js and the client is created with React.js.
 
 ## Getting started
-You can start the app with command: ```docker-compose up```.
+You can start the app with command: ```docker-compose up```.  
+
 After that you can open the server by going to localhost:8080 in your browser, and open the client by going to localhost:3000 in your browser.

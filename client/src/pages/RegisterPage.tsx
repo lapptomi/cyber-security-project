@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Alert, Button, TextField } from '@mui/material';
+import {
+  Alert, Button, FormControl, InputLabel, MenuItem, Select, TextField,
+} from '@mui/material';
 import styled from 'styled-components';
 import axios, { AxiosResponse } from 'axios';
 import { login } from '../helpers';
@@ -9,15 +11,15 @@ import { REACT_APP_API_URL } from '../constants';
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState<string>('');
   const [error, setError] = useState('');
 
   const handleRegister = async (event: any) => {
     event.preventDefault();
 
-    axios.post(`${REACT_APP_API_URL}/users`, { username, password })
-      .then((response: AxiosResponse<Credentials>) => {
-        const { username, password } = response.data;
-        login({ username, password });
+    axios.post(`${REACT_APP_API_URL}/users`, { username, password, role })
+      .then(({ data }: AxiosResponse<Credentials>) => {
+        login({ username: data.username, password });
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -43,6 +45,17 @@ const RegisterPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
+        <FormControl>
+          <InputLabel>Role</InputLabel>
+          <Select
+            value={role}
+            label="Role"
+            onChange={(event) => setRole(event.target.value)}
+          >
+            <MenuItem value="ADMIN">Admin</MenuItem>
+            <MenuItem value="USER">User</MenuItem>
+          </Select>
+        </FormControl>
 
         <Button type="submit" variant="contained">Login</Button>
       </RegisterForm>

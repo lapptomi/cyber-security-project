@@ -1,19 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Navigate } from 'react-router-dom';
 import { LinearProgress, Typography } from '@mui/material';
-import useGetAllUsers from '../hooks/useGetAllUsers';
+import axios from 'axios';
 import useGetLoggedUser from '../hooks/useGetLoggedUser';
-import { User } from '../types';
+import { getToken } from '../helpers';
 
 function SecretAdminPage() {
-  const { users, loading } = useGetAllUsers();
-  const { user: loggedUser, loading: userLoading } = useGetLoggedUser();
-
-  if (loading || userLoading) {
-    return <LinearProgress />;
-  }
+  const [secretData, setSecretData] = useState('');
+  const { user: loggedUser, loading } = useGetLoggedUser();
 
   /*
     VULNERABILITY: Broken access control
@@ -30,22 +25,29 @@ function SecretAdminPage() {
     }
   */
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/auth/admin`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
+      .then((response) => {
+        setSecretData(response.data.secretData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <Container>
       <h1>Top secret admin view</h1>
 
       <div>
         <h3>List of users</h3>
-        {users.map((user: User) => (
-          <StyledRow key={user.id}>
-            <Typography variant="body1">
-              {`Username: ${user.username}`}
-            </Typography>
-            <Typography variant="body1">
-              {`Password: ${user.password}`}
-            </Typography>
-          </StyledRow>
-        ))}
+        <Typography variant="caption" color="textSecondary">
+          {`Secret data: ${secretData}`}
+        </Typography>
       </div>
     </Container>
   );
@@ -56,10 +58,6 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-`;
-
-const StyledRow = styled.div`
-  padding: 10px;
 `;
 
 export default SecretAdminPage;

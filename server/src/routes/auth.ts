@@ -17,4 +17,11 @@ router.post("/login", async (req: Request, res: Response, next) => {
     .catch((error) => next(error));
 });
 
+router.get("/admin", async (req: Request, res: Response, next) => {
+  return authService
+    .getSensitiveAdminData(req)
+    .then((secretData) => res.status(200).json(secretData))
+    .catch((error) => next(error));
+});
+
 export default router;

@@ -32,7 +32,7 @@ const App = () => {
           <Link to="/">
             <Button size="small">Home</Button>
           </Link>
-          {user && (
+          {user && user.role === 'ADMIN' && (
             <Link to="/admin">
               <Button variant="contained" size="small">Admin Page</Button>
             </Link>

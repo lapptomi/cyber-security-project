@@ -1,13 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { User } from "@prisma/client";
 import userDao from "../dao/userDao";
 import { Request } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils/constants";
+import bcrypt from "bcryptjs";
 
 export default {
   async generateToken(request: Request) {
     const user = await userDao.getUserByUsername(request.body.username);
-    if (!user || user.password !== request.body.password) {
+
+    const correctPassword = await bcrypt.compare(
+      request.body.password,
+      user.password,
+    );
+
+    if (!user || !correctPassword) {
       throw new Error("Invalid or missing password");
     }
 
@@ -35,8 +43,25 @@ export default {
     */
 
     const decodedToken = jwt.decode(token) as User;
-    const user = await userDao.getUserById(decodedToken.id);
+    const results = await userDao.getUserById(decodedToken.id);
 
-    return user;
+    return results[0];
+  },
+
+  async getSensitiveAdminData(request: Request) {
+    /*
+      VULNERABILITY: Broken Access Control
+      We're not checking if the user is an admin before allowing them to access this endpoint
+      We can fix this by adding the following code:
+
+      const user = await this.getLoggedUser(request);
+      if (user.role !== "ADMIN") {
+        throw new Error("Forbidden");
+      }
+    */
+
+    return {
+      secretData: "This is a secret data, only for admins.",
+    };
   },
 };

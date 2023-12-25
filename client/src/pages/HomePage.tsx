@@ -13,8 +13,8 @@ const HomePage = () => {
 
   const handleSubmit = async () => {
     axios.post(`${REACT_APP_API_URL}/comments`, { comment })
-      .then(({ data }) => {
-        setComments([...comments, data]);
+      .then((response) => {
+        setComments([...comments, response.data]);
         setComment('');
       })
       .catch((error) => console.error(error));
@@ -28,7 +28,7 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get(`${REACT_APP_API_URL}/comments`)
-      .then(({ data }) => setComments(data))
+      .then((response) => setComments(response.data))
       .catch((error) => console.error(error));
   }, []);
 

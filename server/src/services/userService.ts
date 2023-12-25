@@ -1,10 +1,10 @@
 import { User } from "@prisma/client";
 import userDao from "../dao/userDao";
+import bcrypt from "bcryptjs";
 
 export default {
   async getAllUsers() {
-    const result = await userDao.getAllUsers();
-    return result;
+    return await userDao.getAllUsers();
   },
 
   async getUserById(id: string | number) {
@@ -18,27 +18,28 @@ export default {
   },
 
   async getUserByUsername(username: string) {
-    const user = await userDao.getUserByUsername(username);
-    return user;
+    return await userDao.getUserByUsername(username);
   },
 
   async createUser(newUser: Omit<User, "id">) {
     /*
       VULNERABILITY: Security Misconfiguration:
 
-      Here is also a security issue, because we are not encrypting the password.
+      Here could also be a security issue, since we are not hashing the password,
       So if someone gets access to the database, they can see all the passwords in plain text.
       
-      We could fix this by encrypting the password when creating user like below:
+      So for example the following code would not be secure:
+        const createdUser = await userDao.createUser(newUser);
 
-      const createdUser = await userDao.createUser({
-        username: data.username,
-        // Here we are hashing the password with bcrypt
-        // so that it is not stored in plain text in the database
-        password: bcrypt.hashSync(data.password, 10),
-      });
+      But we are fixing this below.
     */
-    const createdUser = await userDao.createUser(newUser);
+    const createdUser = await userDao.createUser({
+      username: newUser.username,
+      // Here we are hashing the password with bcrypt
+      // so that it is not stored in plain text in the database
+      password: bcrypt.hashSync(newUser.password, 10),
+      role: newUser.role || "USER",
+    });
     return createdUser;
   },
 };
